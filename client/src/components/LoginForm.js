@@ -28,7 +28,7 @@ function LoginForm({onLogin}){
   }
 
   return(
-    <form onSubmitCapture={handleSubmit}>
+    <form className="loginform" onSubmitCapture={handleSubmit}>
 
       <Label>Username</Label>    
       <Input
@@ -38,7 +38,7 @@ function LoginForm({onLogin}){
           onChange={(e) => setUsername(e.target.value)}
       />
 
-      <Label htmlFor="password">Password</Label>
+      <Label>Password</Label>
       <Input
         type="password"
         id="password"
