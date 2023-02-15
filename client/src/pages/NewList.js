@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router";
+import {FormField} from "@formfield/react";
 
-function NewList({user}){
+function NewList(){
   const[title, SetTitle] = useState("");
   const [errors, setErrors] = useState([]);
+  const history = useHistory();
 
   function handleSubmit(e){
     e.preventDefault();
@@ -16,10 +19,9 @@ function NewList({user}){
         title: title,
       }),
     })
-    .then(r => {
+    .then((r) => {
       if(r.ok){
-        r.json()
-        .then()
+        history.push("/");
       }
       else{
         r.json().then((err) => setErrors(err.errors));
@@ -30,14 +32,14 @@ function NewList({user}){
   return(
     <form className="NewListForm" onSubmit={handleSubmit}>
       <label>Enter Title</label>
-      <Input
+      <input
         type="text"
         id="title"
         value={title}
         onChange={(e) => SetTitle(e.target.value)}
       />
       <FormField>
-        {errors.map((err) => (<Error key={err}>{err}</Error>))}
+        {errors.map((err) => (<error key={err}>{err}</error>))}
       </FormField>
     </form>
   );
