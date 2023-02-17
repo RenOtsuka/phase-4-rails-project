@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {FormField} from "@formfield/react";
 
 function LoginForm({onLogin}){
 
@@ -18,8 +19,7 @@ function LoginForm({onLogin}){
     })
     .then(r => {
       if(r.ok){
-        r.json()
-        .then(user => onLogin(user));
+        r.json().then(user => onLogin(user));
       }
       else {
         r.json().then((err) => setErrors(err.errors));
@@ -28,27 +28,30 @@ function LoginForm({onLogin}){
   }
 
   return(
-    <form className="loginform" onSubmitCapture={handleSubmit}>
+    <form className="loginform" onSubmit={handleSubmit}>
 
-      <Label>Username</Label>    
-      <Input
+      <label>Username</label>    
+      <input
           type="text"
           id="username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
       />
 
-      <Label>Password</Label>
-      <Input
+      <label>Password</label>
+      <input
         type="password"
         id="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
+
+      <button type="submit">Login</button>   
       
       <FormField>
-        {errors.map((err) => (<Error key={err}>{err}</Error>))}
+        {errors.map((err) => (<error key={err}>{err}</error>))}
       </FormField>
+
     </form>
     
   );
