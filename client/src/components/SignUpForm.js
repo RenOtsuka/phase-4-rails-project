@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {FormField} from "@formfield/react";
 
 function SignUpForm({onLogin}){
   const [username, setUsername] = useState("");
@@ -16,7 +17,7 @@ function SignUpForm({onLogin}){
         "Accept": "application/json"
       },
       body: JSON.stringify({
-        usersame,
+        username,
         password, 
         password_confirmation: passwordConfirmation
       })
@@ -35,24 +36,24 @@ function SignUpForm({onLogin}){
 
   return(
     <form className="signupform" onSubmit={handleSubmit}>
-      <Label>Username</Label>    
-      <Input
+      <label>Username</label>    
+      <input
           type="text"
           id="username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
       />
 
-      <Label>Password</Label>
-      <Input
+      <label>Password</label>
+      <input
         type="password"
         id="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
 
-      <Label>Password Confirmation</Label>
-      <Input
+      <label>Password Confirmation</label>
+      <input
         type="password"
         id="password_confirmation"
         value={passwordConfirmation}
@@ -60,7 +61,7 @@ function SignUpForm({onLogin}){
         />
       
       <FormField>
-        {errors.map((err) => (<Error key={err}>{err}</Error>))}
+        {errors.map((err) => (<error key={err}>{err}</error>))}
       </FormField>
     </form>
   );
