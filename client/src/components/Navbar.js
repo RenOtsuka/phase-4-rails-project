@@ -1,23 +1,27 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Navbar({user, setsUser}){
+function Navbar({user, setUser}){
 
   function handleLogout(){
     fetch("/logout", {
       method: "DELETE",
     })
-    .then(r => {
+    .then((r) => {
       if (r.ok){
-        setsUser(null);
+        setUser(null);
       }
     })
   }
 
   return(
     <div className="NavBar">
-      <li><Link exact to="/">Lists</Link></li>
-      <li><Link exact to="/items">Items</Link></li>
+      <Link to="/">Lists</Link>
+      <br/>
+      <Link to="/items">Items</Link>
+      <br/>
+      <Link to="/categories">Categories</Link>
+      <br/>
       <button onClick={handleLogout}>Logout</button>
     </div>
   );
