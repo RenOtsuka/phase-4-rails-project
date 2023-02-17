@@ -2,11 +2,11 @@ import './App.css';
 
 import React, { useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
-import NavBar from "./NavBar";
+
+import Navbar from './Navbar';
 import Login from "../pages/Login";
 import ToDoLists from "../pages/ToDoLists";
-import ItemList from "../pages/ItemList";
-import AddList from "../pages/AddList"
+import NewList from "../pages/NewList"
 
 function App() {
 
@@ -14,24 +14,25 @@ function App() {
 
   useEffect( () => {
     fetch("/me")
-    .then(r => {
+    .then((r) => {
       if(r.ok){
-        r.json()
-        .then(user => setUser(user))
+        r.json().then((user) => setUser(user))
       }
     })
-  });
+  }, []);
+
+  if (!user) return <Login onLogin={setUser} />;
 
   return (
     <div className="App">
+       <Navbar user={user} setUser={setUser}/>
       <main>
-        <NavBar user={user} setUser={setUser}/>
         <Switch>
+          <Route path="/new">
+            <NewList/>
+          </Route>
           <Route path="/">
             <ToDoLists/>
-          </Route>
-          <Route path="/new">
-            <AddList user={user}/>
           </Route>
         </Switch>
       </main>
