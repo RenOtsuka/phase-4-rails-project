@@ -15,18 +15,18 @@ function ToDoLists(){
     <>
       {toDoLists.length > 0 ? (
         toDoLists.map(list =>(
-        <List key={list.id}>
-          <h3>{list.title}</h3>
-          <ItemList/>
-        </List>
+          <ul className={list.title} key={list.id}>
+             <h3>{list.title}</h3>
+            <ItemList list={list}/>
+          </ul>
         ))
-        
       ) : (
         <>
+        <br/>
           <h2>No Lists Found</h2>
-          <Button as={Link} to="/new">
-            Create List
-          </Button>
+          <Link to="/new">
+            <button>Create List</button>
+          </Link>
         </>
       )}
     </>
