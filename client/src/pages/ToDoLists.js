@@ -2,22 +2,32 @@ import { useEffect, useState } from "react";
 import ItemList from "./ItemList";
 import { Link } from "react-router-dom";
 
-function ToDoLists(){
-  const[toDoLists, SetToDoLists] = useState([]);
+function ToDoLists({toDoLists}){
 
-  useEffect(() => {
-    fetch("/todolists")
-    .then(r => r.json())
-    .then(data => SetToDoLists(data))
-  },[])
-  
+  function onDeleteItem(id){
+    const newList = toDoLists.filter((item) => item.id !== id);
+    SetToDoLists(newList);
+  } 
+
+  function onEditItem(editedItemObj){
+    const updateList = toDoList.map( (item) => {
+        if(item.id === editedItemObj.id){
+            return editedItemObj;
+        }
+        else {
+            return item;
+        }
+    });
+    SetToDoLists(updateList);
+  }
+
   return(
     <>
       {toDoLists.length > 0 ? (
         toDoLists.map(list =>(
           <ul className={list.title} key={list.id}>
              <h3>{list.title}</h3>
-            <ItemList list={list}/>
+            <ItemList list={list} onDeleteItem={onDeleteItem} onEditItem={onEditItem}/>
           </ul>
         ))
       ) : (
