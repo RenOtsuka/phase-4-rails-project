@@ -1,8 +1,8 @@
 // import {useState } from "react";
 import Item from "../components/Items/Item";
 
-function ItemList({list, onDeleteItem, onEditItem}){
-  const itemList = list.map( item => (
+function ItemList({itemList, onDeleteItem, onEditItem}){
+  const itemsList = itemList.map( item => (
     <Item
       key={item.id}
       id={item.id}
@@ -14,7 +14,7 @@ function ItemList({list, onDeleteItem, onEditItem}){
   ))
 
   return (
-    <ul className="itemList">{itemList}</ul>
+    <ul className="itemsList">{itemsList}</ul>
   )
 }
 
