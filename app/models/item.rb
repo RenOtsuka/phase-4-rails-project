@@ -1,7 +1,8 @@
 class Item < ApplicationRecord
-  has_many :todolists
-  has_many :users, through: :todolists
+  belongs_to :user
+  belongs_to :category
   validates :name, presence: true, length: {maximum: 50}
-  validates :quantity, presence: true, numericalty: {only_integer: true}
+  validates :quantity, presence: true, numericality: {only_integer: true}
+
   
 end
