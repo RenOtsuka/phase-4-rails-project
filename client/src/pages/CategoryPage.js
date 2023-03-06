@@ -1,18 +1,9 @@
 import React from "react"
 import NewCategory from "../components/Category/NewCategory";
-import CategoryRender
- from "../components/Category/CategoryRender";
+import CategoryRender from "../components/Category/CategoryRender";
 
 
-function CategoryPage(){
-  const [categoryList, setCategoryList] = useState([]);
-
-  useEffect(() => {
-    fetch(`/categories`)
-    .then((r) => r.json())
-    .then((data) => setCategoryList(data))
-    .catch(error => alert(error));
-  },[]);
+function CategoryPage({categoryList, setCategoryList}){
 
   function addCat(itemObj){
     setCategoryList([...categoryList, itemObj]);
@@ -24,12 +15,9 @@ function CategoryPage(){
         <header>
         <br/>
         <h1>Category List</h1>
-        <div className="SubHeader">
-            <h3>Category</h3>
-        </div>
         </header>
         <NewCategory addCat={addCat}/>
-        <CategoryRender list={categoryList}/>
+        <CategoryRender categoryList={categoryList}/>
     </div>
 )
 
