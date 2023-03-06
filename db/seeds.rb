@@ -5,3 +5,18 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+User.destroy_all
+Item.destroy_all
+Category.destroy_all
+
+puts "🌱 Seeding spices..."
+
+user1 = User.create(username: "user_1", password: "pass123")
+user2 = User.create(username: "user_2", password: "pass123")
+
+cat1 = Category.create(name: "Food")
+cat2 = Category.create(name: "Tech")
+
+item1 = Item.create(name: "Buy Milk", quantity: 1, user_id: user1.id, category_id: cat1.id)
+
