@@ -16,13 +16,13 @@ function Navbar({user, setUser}){
 
   return(
     <div className="NavBar">
-      <Link to="/">Lists</Link>
       <br/>
-      <Link to="/items">Items</Link>
+      <Link to="/">Items</Link>
       <br/>
       <Link to="/categories">Categories</Link>
       <br/>
       <button onClick={handleLogout}>Logout</button>
+      <br/>
     </div>
   );
 }
