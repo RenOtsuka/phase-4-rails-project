@@ -9,7 +9,6 @@ class SessionsController < ApplicationController
     end
   end
 
-
   def destroy
     if session[:user_id]
       session.delete :user_id
