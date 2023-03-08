@@ -7,6 +7,7 @@ function Login({onLogin}){
 
   return(
     <div className="login">
+      <br/>
       {showLogin ? (
         <>
         <LoginForm onLogin={onLogin} />
