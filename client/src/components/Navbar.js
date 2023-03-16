@@ -9,7 +9,8 @@ function Navbar({user, setUser}){
     })
     .then((r) => {
       if (r.ok){
-        setUser(null);
+        setUser({items:[]});
+        // console.log(user);
       }
     })
   }
@@ -21,7 +22,9 @@ function Navbar({user, setUser}){
       <br/>
       <Link to="/categories">Categories</Link>
       <br/>
-      <button onClick={handleLogout}>Logout</button>
+      <Link to="/">
+        <button onClick={handleLogout}>Logout</button>
+      </Link>
       <br/>
     </div>
   );
