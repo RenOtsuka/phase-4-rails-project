@@ -1,11 +1,12 @@
 class ItemsController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
+  rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
   before_action :authorize
 
   def index
     user = User.find(session[:user_id])
-    items = user.items
-    render json: items, status: :ok
+    user_items = user.items
+    render json: user_items, include: ['categories', 'user.categories'], status: :ok
   end
 
   def create
@@ -24,7 +25,7 @@ class ItemsController < ApplicationController
       item.update(item_params)
       render json: item, status: :accepted
     else
-      render json: {errors: "Item not associated with this user"}, status: :unprocessable_entity
+      render json: {errors: item.errors.full_messages}, status: :unprocessable_entity
     end
   end
 
@@ -47,6 +48,11 @@ class ItemsController < ApplicationController
   def authorize
     return render json: {errors: ["User Not Logged In"]}, status: :unauthorized unless session.include? :user_id
   end
+
+  def render_unprocessable_entity_response(invalid)
+    render json: { errors: invalid.record.errors }, status: :unprocessable_entity
+  end
+
 
   def render_not_found_response
     render json: {error: "Item not found"}, status: :not_found

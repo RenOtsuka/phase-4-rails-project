@@ -17,6 +17,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    # byebug
     user = User.find(session[:user_id])
     render json: user, status: :ok
   end
@@ -30,6 +31,7 @@ class UsersController < ApplicationController
   def authorize
     return render json: {errors: ["Not authorized"]}, status: :unauthorized unless session.include? :user_id
   end
+  
 
   def render_not_found_response
     render json: {error: "User not found"}, status: :not_found
