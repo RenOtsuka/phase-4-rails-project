@@ -19,4 +19,7 @@ cat1 = Category.create(name: "Food")
 cat2 = Category.create(name: "Tech")
 
 item1 = Item.create(name: "Buy Milk", quantity: 1, user_id: user1.id, category_id: cat1.id)
+item2 = Item.create(name: "Buy Cheese", quantity: 1, user_id: user2.id, category_id: cat1.id)
+item3 = Item.create(name: "Buy RAM", quantity: 1, user_id: user2.id, category_id: cat2.id)
+
 
