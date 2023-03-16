@@ -20,39 +20,62 @@ function App() {
   useEffect(() => {
     fetch(`/categories`)
     .then((r) => r.json())
-    .then((data) => setCategoryList(data))
+    .then((data) => {
+      setCategoryList(data)
+    })
     .catch(error => alert(error));
   },[itemList]);
 
   useEffect(() => {
-    fetch("/items")
-    .then(r => r.json())
-    .then(data => {SetItemList(data);})
-  },[]);
+    SetItemList(user.items)
+  },[user])
 
 
   function addItem(itemObj){
     SetItemList([...itemList, itemObj]);
   }
 
-  if (!user) return <Login onLogin={setUser} />;
+  function onDeleteItem(id){
+    const newList = itemList.filter((item) => item.id !== id);
+    SetItemList(newList);
+  } 
+
+  function onEditItem(editedItemObj){
+    const updateList = itemList.map( (item) => {
+        if(item.id === editedItemObj.id){
+            return editedItemObj;
+        }
+        else {
+            return item;
+        }
+    });
+    SetItemList(updateList);
+  }
+
+
+  function addCat(itemObj){
+    setCategoryList([...categoryList, itemObj]);
+  }
+
+  if (!user.id) {
+    return <Login onLogin={setUser} />;
+  }
 
   return (
     <div className="App">
       <Navbar user={user} setUser={setUser}/>
       <main>
         <Switch>
-
           <Route exact path ="/categories">
-            <CategoryPage categoryList={categoryList} setCategoryList={setCategoryList}/>
+            <CategoryPage user={user} setUser={setUser} itemList={itemList} categoryList={categoryList} addCat={addCat} />
           </Route>
 
-          <Route exact path="/new">
-            <NewItem user_id={user.id} addItem={addItem} categoryList={categoryList}/>
+          <Route  exact path="/new">
+            <NewItem user={user} setUser={setUser} addItem={addItem} categoryList={categoryList}/>
           </Route>
 
           <Route path="/">
-            <ItemList itemList={itemList} SetItemList={SetItemList}/>
+            <ItemList user={user} setUser={setUser} itemList={itemList} onEditItem={onEditItem} onDeleteItem={onDeleteItem}/>
           </Route>
 
         </Switch>
