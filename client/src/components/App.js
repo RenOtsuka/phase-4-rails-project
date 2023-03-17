@@ -67,15 +67,15 @@ function App() {
       <main>
         <Switch>
           <Route exact path ="/categories">
-            <CategoryPage user={user} setUser={setUser} itemList={itemList} categoryList={categoryList} addCat={addCat} />
+            <CategoryPage user={user} itemList={itemList} categoryList={categoryList} addCat={addCat} />
           </Route>
 
           <Route  exact path="/new">
-            <NewItem user={user} setUser={setUser} addItem={addItem} categoryList={categoryList}/>
+            <NewItem user={user} addItem={addItem} categoryList={categoryList}/>
           </Route>
 
           <Route path="/">
-            <ItemList user={user} setUser={setUser} itemList={itemList} onEditItem={onEditItem} onDeleteItem={onDeleteItem}/>
+            <ItemList itemList={itemList} onEditItem={onEditItem} onDeleteItem={onDeleteItem}/>
           </Route>
 
         </Switch>
