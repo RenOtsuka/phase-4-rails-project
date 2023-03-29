@@ -1,9 +1,8 @@
-import React, {useState} from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import Item from "../components/Items/Item";
 
-function ItemList({ itemList, onEditItem, onDeleteItem}){
-
+function ItemList({itemList, onEditItem, onDeleteItem}){
 
   return (
     <>
@@ -20,8 +19,7 @@ function ItemList({ itemList, onEditItem, onDeleteItem}){
             name={item.name}
             quantity={item.quantity}
             category_id = {item.category_id}
-            user_id = {item.user_id}
-            onEditItem={onEditItem}
+            onEditItem={onEditItem} 
             onDeleteItem={onDeleteItem}
           /> 
           )
