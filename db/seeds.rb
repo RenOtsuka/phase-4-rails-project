@@ -14,12 +14,23 @@ puts "🌱 Seeding spices..."
 
 user1 = User.create(username: "user_1", password: "pass123")
 user2 = User.create(username: "user_2", password: "pass123")
+user3 = User.create(username: "user_3", password: "pass123")
+user4 = User.create(username: "user_4", password: "pass123")
 
 cat1 = Category.create(name: "Food")
 cat2 = Category.create(name: "Tech")
+cat3 = Category.create(name: "House")
+cat4 = Category.create(name: "Landscape")
 
-item1 = Item.create(name: "Buy Milk", quantity: 1, user_id: user1.id, category_id: cat1.id)
-item2 = Item.create(name: "Buy Cheese", quantity: 1, user_id: user2.id, category_id: cat1.id)
-item3 = Item.create(name: "Buy RAM", quantity: 1, user_id: user2.id, category_id: cat2.id)
+
+item1 = user1.items.create(name: "Buy Milk", quantity: 1, category_id: cat1.id)
+item2 = user2.items.create(name: "Buy Cheese", quantity: 2, category_id: cat1.id)
+item3 = user1.items.create(name: "Buy Soup", quantity: 3, category_id: cat1.id)
+item4 = user2.items.create(name: "Buy RAM", quantity: 1, category_id: cat2.id)
+item5 = user3.items.create(name: "Fix Roof", quantity: 0, category_id: cat3.id)
+item6 = user4.items.create(name: "Buy Mulch", quantity: 4, category_id: cat3.id)
+item7 = user4.items.create(name: "Buy RAM", quantity: 1, category_id: cat4.id)
+
+
 
 
