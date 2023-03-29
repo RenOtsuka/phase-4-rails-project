@@ -1,16 +1,13 @@
 class ItemsController < ApplicationController
-  rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
-  rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
-  before_action :authorize
 
   def index
-    user = User.find(session[:user_id])
+    user = find_current_user
     user_items = user.items
-    render json: user_items, include: ['categories', 'user.categories'], status: :ok
+    render json: user_items, status: :ok
   end
 
   def create
-    user = User.find(session[:user_id])
+    user = find_current_user
     item = user.items.create(item_params)
     if item.valid?
       render json: item, status: :created
@@ -20,7 +17,7 @@ class ItemsController < ApplicationController
   end
 
   def update
-    item = Item.find(params[:id])
+    item = find_current_item
     if item[:user_id]
       item.update(item_params)
       render json: item, status: :accepted
@@ -30,7 +27,7 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    item = Item.find(params[:id])
+    item = find_current_item
     if item[:user_id]
       item.destroy
       head :no_content
@@ -39,23 +36,35 @@ class ItemsController < ApplicationController
     end
   end
 
+  
   private 
 
+  def find_current_item
+    Item.find_by(id: params[:id])
+  end
+
+
   def item_params 
-    params.permit(:name, :quantity, :user_id, :category_id)
+    params.permit(:name, :quantity, :category_id)
   end
 
-  def authorize
-    return render json: {errors: ["User Not Logged In"]}, status: :unauthorized unless session.include? :user_id
-  end
-
-  def render_unprocessable_entity_response(invalid)
-    render json: { errors: invalid.record.errors }, status: :unprocessable_entity
-  end
-
-
+  
   def render_not_found_response
     render json: {error: "Item not found"}, status: :not_found
   end
 
 end
+
+# get "/items/:n", to: "items#find_n"
+# def find_n
+  #   items = Item.where("quantity < ?", params[:n])
+  #   items = Item.filter{|item| item.quantity < params[:n]}
+  #   users = items.map{|item| item.user}
+  #   if !users.empty? 
+  #     render json: users, status: :ok
+  #   else
+  #     render json: {errors: "No users found"}, status: :unprocessable_entity
+  #   end
+# end
+
+# Make a custom route that takes in a dynamic parameter, call it n, which will then be used in a custom action in the items controller to find all items that have a quantity of less than n. After you find these items, render all the users who are associated with these items as json. If no items are found, and thus no users, render json that says so.

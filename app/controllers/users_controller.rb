@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
+
+  skip_before_action :authorize, only:[:create]
 
   def create
     user = User.create(user_params)
@@ -17,8 +18,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    # byebug
-    user = User.find(session[:user_id])
+    user = find_current_user
     render json: user, status: :ok
   end
 
@@ -28,11 +28,7 @@ class UsersController < ApplicationController
     params.permit(:username, :password, :password_confirmation)
   end
 
-  def authorize
-    return render json: {errors: ["Not authorized"]}, status: :unauthorized unless session.include? :user_id
-  end
   
-
   def render_not_found_response
     render json: {error: "User not found"}, status: :not_found
   end
