@@ -12,35 +12,41 @@ import NewItem from './Items/NewItem';
 
 function App() {
 
-  const {user, setUser} = useContext(UserContext);
-  const[itemList, SetItemList] = useState([]);
+  const {user,setUser} = useContext(UserContext);
   const [categoryList, setCategoryList] = useState([]);
-
 
   useEffect(() => {
     fetch(`/categories`)
     .then((r) => r.json())
-    .then((data) => {
-      setCategoryList(data)
-    })
+    .then((data) => {setCategoryList(data)})
     .catch(error => alert(error));
-  },[itemList]);
+  },[user]);
 
-  useEffect(() => {
-    SetItemList(user.items)
-  },[user])
+  // useEffect(() => {
+  //   SetItemList(user.items)
+  // },[user])
 
 
   function addItem(itemObj){
-    SetItemList([...itemList, itemObj]);
+    const itemList = [...user.items, itemObj];
+    const updateUser = {
+      ...user, items: itemList
+    }
+    setUser(updateUser);
   }
 
   function onDeleteItem(id){
+    const itemList = [...user.items];
     const newList = itemList.filter((item) => item.id !== id);
-    SetItemList(newList);
+    const updateUser = {
+      ...user, items: newList
+    }
+
+    setUser(updateUser);
   } 
 
   function onEditItem(editedItemObj){
+    const itemList = [...user.items];
     const updateList = itemList.map( (item) => {
         if(item.id === editedItemObj.id){
             return editedItemObj;
@@ -49,7 +55,12 @@ function App() {
             return item;
         }
     });
-    SetItemList(updateList);
+
+    const updateUser = {
+      ...user, items: updateList
+    }
+
+    setUser(updateUser);
   }
 
 
@@ -67,15 +78,15 @@ function App() {
       <main>
         <Switch>
           <Route exact path ="/categories">
-            <CategoryPage user={user} itemList={itemList} categoryList={categoryList} addCat={addCat} />
+            <CategoryPage user={user} itemList={user.items} categoryList={categoryList} addCat={addCat} />
           </Route>
 
           <Route  exact path="/new">
-            <NewItem user={user} addItem={addItem} categoryList={categoryList}/>
+            <NewItem categoryList={categoryList} addItem={addItem}/>
           </Route>
 
           <Route path="/">
-            <ItemList itemList={itemList} onEditItem={onEditItem} onDeleteItem={onDeleteItem}/>
+            <ItemList itemList={user.items} onEditItem={onEditItem} onDeleteItem={onDeleteItem}/>
           </Route>
 
         </Switch>
