@@ -1,38 +1,27 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 
-function CategoryItems({id, name, items}){
-  const [categoryToggle, setCategoryToggle] = useState(false);
-  const [itemList, setItemList] = useState(items);
+function CategoryItems({id, items, name, categoryToggle, setCategoryToggle}){
 
-  // useEffect(() => {
-  //   fetch(`/categories/${id}`)
-  //   .then((r) => r.json())
-  //   .then((data) => setItemList(data))
-  //   .catch(error => alert(error));
-  // },[itemList]);
+  // const catList = items.map((item) => 
+  //   <p id={item.id}>{item.task}</p>
+  // ) 
 
+//  const [categoryToggle, setCategoryToggle] = useState(false);
 
-  const catList = itemList.map((item) => 
-    <div key={item.id} id={item.id}>
-     <p>{item.name} x {item.quantity}</p>
-    </div>
-  )
-
-  function toggle(){
-    setCategoryToggle((categoryToggle) => !categoryToggle);
-  }
+//   function toggle(){
+//     setCategoryToggle((categoryToggle) => !categoryToggle);
+//   }
 
   return(
-    <div className="body">
-      <button id={id} onClick={toggle}>{name}</button>
-      <br/>
+    <div className="item_body">
+      {/* <button id={id} onClick={toggle}>{name}</button> */}
       {categoryToggle ? (
-        catList
+        <div key={items.id} id={items.id}>
+          <p>{items.name} x {items.quantity}</p>
+        </div>
       ) : ( 
-        null
+       null
       )}
-      <hr/>
-      <br/>
     </div>
   ) 
 

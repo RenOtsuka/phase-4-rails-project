@@ -42,7 +42,7 @@ function NewCategory({addCat}){
                 onChange={(e) => setNewCategory(e.target.value)}
                 />         
                 <button type="submit">Submit</button>
-                {errors.map((err) => (<error key={err}>{err}</error>))}           
+                {errors.map((err) => (<error key={err}> {err + "."} </error>))}   
             </form>
             
         </>
