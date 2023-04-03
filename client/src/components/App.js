@@ -22,9 +22,6 @@ function App() {
     .catch(error => alert(error));
   },[user]);
 
-  // useEffect(() => {
-  //   SetItemList(user.items)
-  // },[user])
 
 
   function addItem(itemObj){
