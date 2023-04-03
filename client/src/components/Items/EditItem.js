@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function EditItem({id, name, quantity, category_id, user_id, editItem}){
+function EditItem({id, name, quantity, category_id, editItem}){
 
     const [editName, setEditName] = useState(name);
     const [editQuantity, setEditQuantity] = useState(quantity);
@@ -19,7 +19,6 @@ function EditItem({id, name, quantity, category_id, user_id, editItem}){
                 name: editName,
                 quantity: editQuantity,
                 category_id: category_id,
-                user_id: user_id
               }),
         })
         .then((r) => {

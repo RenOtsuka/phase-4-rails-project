@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import EditItem from "./EditItem";
 
-function Item({id, name, quantity, category_id, user_id, onDeleteItem, onEditItem}){
+function Item({id, name, quantity, category_id, onEditItem,onDeleteItem}){
 
   const [editToggle, setEditToggle] = useState(false);
 
@@ -29,7 +29,6 @@ function Item({id, name, quantity, category_id, user_id, onDeleteItem, onEditIte
           name={name}
           quantity={quantity}
           category_id ={category_id}
-          user_id ={user_id}
           editItem={handleEditItem}/>
       ) : (
           <div className="body">

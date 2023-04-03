@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
-function NewItem({user_id, addItem, categoryList}){
+function NewItem({categoryList, addItem}){
+
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState(0);
   const [categoryId, setCategoryId] = useState(0);
@@ -18,17 +19,17 @@ function NewItem({user_id, addItem, categoryList}){
         body: JSON.stringify({
             name: name,
             quantity: quantity,
-            user_id: user_id,
             category_id: categoryId
         })
     })
     .then((r) => {
       if(r.ok){
-        r.json().then(data => addItem(data));
+        r.json().then(data => {
+          addItem(data)
+        });
       }
       else{
         r.json().then(err => setErrors(err.errors));
-        // console.log(errors);
       }
     }).catch(error => alert(error));
     setName("");
