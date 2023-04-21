@@ -28,8 +28,8 @@ item2 = user2.items.create(name: "Buy Cheese", quantity: 2, category_id: cat1.id
 item3 = user1.items.create(name: "Buy Soup", quantity: 3, category_id: cat1.id)
 item4 = user2.items.create(name: "Buy RAM", quantity: 1, category_id: cat2.id)
 item5 = user3.items.create(name: "Fix Roof", quantity: 0, category_id: cat3.id)
-item6 = user4.items.create(name: "Buy Mulch", quantity: 4, category_id: cat3.id)
-item7 = user4.items.create(name: "Buy RAM", quantity: 1, category_id: cat4.id)
+item6 = user4.items.create(name: "Buy Mulch", quantity: 4, category_id: cat4.id)
+item7 = user4.items.create(name: "Buy Paint", quantity: 1, category_id: cat3.id)
 
 
 
