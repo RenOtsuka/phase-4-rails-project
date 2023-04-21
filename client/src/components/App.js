@@ -14,15 +14,27 @@ function App() {
 
   const {user,setUser} = useContext(UserContext);
   const [categoryList, setCategoryList] = useState([]);
+  const [userCat, setUserCat] = useState([]);
+  
 
   useEffect(() => {
-    fetch(`/categories`)
+    fetch(`/allcategories`)
     .then((r) => r.json())
     .then((data) => {setCategoryList(data)})
     .catch(error => alert(error));
   },[user]);
 
+  useEffect(() => {
+    fetch(`/categories`)
+    .then((r) => r.json())
+    .then((data) => {setUserCat(data)})
+    .catch(error => alert(error));
+  },[user]);
 
+
+
+
+  console.log(user)
 
   function addItem(itemObj){
     const itemList = [...user.items, itemObj];
@@ -75,7 +87,7 @@ function App() {
       <main>
         <Switch>
           <Route exact path ="/categories">
-            <CategoryPage user={user} itemList={user.items} categoryList={categoryList} addCat={addCat} />
+            <CategoryPage user={user} itemList={user.items} userCat={userCat} addCat={addCat} />
           </Route>
 
           <Route  exact path="/new">
