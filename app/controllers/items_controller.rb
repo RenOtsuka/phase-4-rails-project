@@ -36,7 +36,7 @@ class ItemsController < ApplicationController
     end
   end
 
-  
+
   private 
 
   def find_current_item
@@ -55,16 +55,18 @@ class ItemsController < ApplicationController
 
 end
 
+
 # get "/items/:n", to: "items#find_n"
-# def find_n
+  # def find_n
+  #   byebug
   #   items = Item.where("quantity < ?", params[:n])
-  #   items = Item.filter{|item| item.quantity < params[:n]}
+  #   # items = Item.select {|item| item.quantity < params[:n].to_i}
   #   users = items.map{|item| item.user}
   #   if !users.empty? 
   #     render json: users, status: :ok
   #   else
-  #     render json: {errors: "No users found"}, status: :unprocessable_entity
+  #     render json: {errors: ["No users found"]}, status: :unprocessable_entity
   #   end
-# end
+  # end
 
 # Make a custom route that takes in a dynamic parameter, call it n, which will then be used in a custom action in the items controller to find all items that have a quantity of less than n. After you find these items, render all the users who are associated with these items as json. If no items are found, and thus no users, render json that says so.
