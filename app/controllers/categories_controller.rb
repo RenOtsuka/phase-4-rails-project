@@ -1,14 +1,14 @@
 class CategoriesController < ApplicationController
 
   def index
-    categories = Category.all
-    render json: categories, status: :ok
+    user = find_current_user
+    user_category = user.categories.uniq
+    render json: user_category, status: :ok
   end
 
-  def show
-    user = find_current_user
-    user_category = user.categories
-    render json: user_category, status: :ok
+  def all_cat
+    categories = Category.all
+    render json: categories, status: :ok
   end
 
   def create
@@ -18,7 +18,7 @@ class CategoriesController < ApplicationController
     else
       render json: {errors: category.errors.full_messages}, status: :unprocessable_entity
     end
-  end
+  end 
 
   private
 
@@ -30,5 +30,7 @@ class CategoriesController < ApplicationController
   def render_not_found_response
     render json: { error: "Category not found" }, status: :not_found
   end
+
+ 
 
 end
