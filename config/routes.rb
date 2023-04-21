@@ -7,10 +7,11 @@ Rails.application.routes.draw do
   delete "/logout", to: "sessions#destroy"
   post "/signup", to: "users#create"
   get "/me", to: "users#show"
+  get "/allcategories", to: "categories#all_cat"
 
   resources :users, only:[:index, :show, :create] 
   resources :items, except:[:show]
-  resources :categories, only:[:index, :show, :create]
+  resources :categories, only:[:index, :create]
 end
 
 
